@@ -1,0 +1,61 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{ url_for('static',     filename='css/main.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static',     filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img src="../static/images/tri-thuc.jpg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <h1 style="text-align: center;">Setup Knowledge</h1>
+<!--            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>-->
+<!--            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">-->
+<!--                <u>Bootstrapious</u></a>-->
+<!--            </p>-->
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form action="#">
+                <div class="row">
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <span class="">
+                            Upload file tri thức(H5)
+                        </span>
+                    </div>
+                    <div class="input-group col-lg-12 mb-4">
+                        <input type="file" name="file_h5" placeholder="Vui lòng chọn tệp" class="">
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <a href="#" class="btn btn-primary btn-block py-2">
+                            <span class="font-weight-bold">Lưu</span>
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(function () {
+            $('input, select').on('focus', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+            });
+            $('input, select').on('blur', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+            });
+        });
+    });
+    // For Demo Purpose [Changing input group text on focus]
+
+</script>
+</body>
+</html>

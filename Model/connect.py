@@ -21,3 +21,11 @@ def insert_music(music, singer, author, url, flag):
         VALUES(?, ?, ?, ?,?)
     """, music, singer, author, url, flag) 
     cnxn.commit()
+
+def select_music():
+    cursor.execute("""
+        SELECT * FROM MUSIC
+    """)
+    res = cursor.fetchall()
+    cnxn.commit()
+    return res
