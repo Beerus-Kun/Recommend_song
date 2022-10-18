@@ -1,16 +1,14 @@
 
-import gensim, re
+import gensim, re, pickle, datetime, os, multiprocessing
 import numpy as np
 import pandas as pd
-import pickle
 from os import listdir
+
+import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from keras.preprocessing.text import Tokenizer
 from keras_preprocessing.sequence import pad_sequences
-
-import os
-import multiprocessing
 
 from keras.layers import Dense, Embedding, Input, Conv2D, MaxPooling2D, concatenate, Dropout
 from keras.layers.core import Reshape, Flatten
@@ -21,6 +19,8 @@ sep = os.sep
 
 data_folder = "Learning/Data"
 model_folder = "Learning/Model"
+result_folder = "Learning/Result"
+
 EMBEDDING_DIM = 300
 
 
@@ -135,4 +135,15 @@ if __name__ == '__main__':
 
     batch = 256
     epochs = 20
-    model.fit(X_train,y_train,batch_size= batch,epochs=epochs,callbacks=callbacks_list, verbose=2, validation_data=(X_test,y_test))
+    history_data = model.fit(X_train,y_train,batch_size= batch,epochs=epochs,callbacks=callbacks_list, verbose=2, validation_data=(X_test,y_test))
+
+    # create chart
+    plt.plot(history_data.history['accuracy'], label = "train_accuracy")
+    plt.plot(history_data.history['val_accuracy'], label = "val_accuracy")
+    plt.xlabel('iteration')
+    plt.ylabel('Accuracy')
+    plt.legend()
+
+    now = datetime.datetime.now()
+
+    plt.savefig(result_folder + sep + now.strftime("%d-%m-%Y_full_data.png"))

@@ -19,6 +19,9 @@ pip install gensim numpy pandas
 ### Cài đặt sklearn keras tensorflow để train model CNN
 pip install sklearn keras tensorflow
 
+### Cài đặt matplotlib để vẽ biểu đồ
+pip instal matplotlib
+
 ### Chạy chương trình web
 python main.py
 

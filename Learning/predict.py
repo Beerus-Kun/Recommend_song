@@ -2,13 +2,13 @@ from copyreg import pickle
 import os, pickle
 
 from keras.models import load_model
-from keras.preprocessing.text import Tokenizer
-from keras.models import Model
+# from keras.preprocessing.text import Tokenizer
+# from keras.models import Model
 
 sep = os.sep
 
 data_folder = "Learning/Data"
-model_folder = "Learning/Model"
+model_folder = "Learning/Final_Model"
 EMBEDDING_DIM = 300
 
 def predict(sentence):
@@ -30,13 +30,14 @@ def predict(sentence):
 
     # predict
     arr = tokenizer.texts_to_sequences([sentence])
-    if print(len(arr[0])) == 0:
+    print("\nĐộ dài câu: ", len(arr[0]))
+    if len(arr[0]) == 0:
         print('Warning! Every words in this sentence couldn\'t found in current dictionary')
     arr[0] = [0] * (model.layers[0].output_shape[0][1]-len(arr[0])) + arr[0]
     return model.predict(arr).argmax()
 
 if __name__ == '__main__':
-    print(predict('Một cái gì đó'))
+    print(predict('đang nằm cùng bồ'))
 
 
 
