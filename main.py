@@ -8,14 +8,15 @@ app = Flask(__name__)
 @app.route("/", methods = ['POST', 'GET'])
 def home():
     if request.method == 'GET':
-        return render_template("index.html")
+        return render_template("index1.html")
     if request.method == 'POST':
-        print(request.form)
-        return render_template("index.html", result=request.form)
+        flag = predict.predict(request.form['search'])
+        res = connect.select_music(flag)
+        return render_template("index.html", search=request.form['search'], music_list = res)
 
 @app.route("/form")
 def form():
-    print(predict.predict('một câu gì đó'))
+    # print(predict.predict('một câu gì đó'))
     return render_template("form.html")
 
 @app.route("/insert")

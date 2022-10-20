@@ -9,13 +9,13 @@
   </head>
   <body>
     <div class="s004">
-      <form>
+      <form action="http://localhost:5000/" method="post">
         <fieldset>
           <legend>HOW DO YOU FEEL TODAY?</legend>
           <div class="inner-form">
             <div class="input-field">
-              <input class="form-control" id="choices-text-preset-values" type="text" placeholder="Type to search..." />
-              <button class="btn-search" type="button">
+              <input class="form-control" name="search" id="choices-text-preset-values" type="text" placeholder="Type to search..." />
+              <button class="btn-search" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                 </svg>
@@ -35,17 +35,17 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="">
-                  <a href="">
+                  <a href="https://www.youtube.com/watch?v=GNsoXrAEEWg">
                     <img class="" style="width: 320px" src="https://i.ytimg.com/vi/hRWZEa7DYJg/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDOkqQV6ts4THh4LcIz6S4ssW3vkw" alt="">
                   </a>
                 </div>
                 <div class="" style="color: #212529">
-                  <h3>Tên bài hát</h3>
+                  <h3>{{ music_list['name_music'] }}</h3>
                   <div class="">
-                    <span class="">Ca sĩ trình bày: Nhan</span>
+                    <span class="">Ca sĩ trình bày: {{ music_list['name_singer'] }}</span>
                   </div>
                   <div class="">
-                    <span class="">Nhạc sĩ : Nhan</span>
+                    <span class="">Nhạc sĩ : {{ music_list['name_author'] }}</span>
                   </div>
                 </div>
               </div>

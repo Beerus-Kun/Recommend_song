@@ -21,11 +21,23 @@ def insert_music(music, singer, author, url, flag):
         VALUES(?, ?, ?, ?,?)
     """, music, singer, author, url, flag) 
     cnxn.commit()
+    # cnxn.close()
 
-def select_music():
+# def select_music():
+#     cursor.execute("""
+#         SELECT * FROM MUSIC
+#     """)
+#     res = cursor.fetchall()
+#     cnxn.commit()
+#     cnxn.close()
+#     return res
+
+def select_music(flag):
     cursor.execute("""
-        SELECT * FROM MUSIC
-    """)
-    res = cursor.fetchall()
-    cnxn.commit()
+        select * from music where flag=?
+    """, int(flag))
+    res = [dict((cursor.description[i][0], value) 
+               for i, value in enumerate(row)) for row in cursor.fetchall()]
+    # cnxn.commit()
+    # cnxn.close()
     return res

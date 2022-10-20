@@ -30,14 +30,11 @@ def predict(sentence):
 
     # predict
     arr = tokenizer.texts_to_sequences([sentence])
-    print("\nĐộ dài câu: ", len(arr[0]))
+    # print("\nĐộ dài câu: ", len(arr[0]))
     if len(arr[0]) == 0:
         print('Warning! Every words in this sentence couldn\'t found in current dictionary')
     arr[0] = [0] * (model.layers[0].output_shape[0][1]-len(arr[0])) + arr[0]
     return model.predict(arr).argmax()
 
 if __name__ == '__main__':
-    print(predict('đang nằm cùng bồ'))
-
-
-
+    print(predict('hg6'))

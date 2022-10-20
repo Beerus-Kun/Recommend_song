@@ -85,7 +85,7 @@ if __name__ == '__main__':
     if not os.path.exists(model_folder + sep + "word_model.model"):
         cores = multiprocessing.cpu_count()
         word_model = gensim.models.Word2Vec(texts, vector_size=EMBEDDING_DIM, min_count=2, workers=cores-1)
-        word_model.train(texts, total_examples=word_model.corpus_count, epochs=10 )
+        word_model.train(texts, total_examples=word_model.corpus_count, epochs=20 )
         word_model.save(model_folder + sep + "word_model.model")
     else:
         word_model = gensim.models.Word2Vec.load(model_folder + sep + "word_model.model")
