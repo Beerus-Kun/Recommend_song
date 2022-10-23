@@ -2,39 +2,76 @@
 from flask import Flask, render_template, request
 from Model import connect
 from Learning import predict
+import os, datetime
 
 app = Flask(__name__)
+model_folder = "Learning/Final_Model/"
+current_h5 = model_folder + 'predict_model.h5'
+current_dict = model_folder + "tokenizer.pkl"
 
 @app.route("/", methods = ['POST', 'GET'])
 def home():
-    if request.method == 'GET':
-        return render_template("index1.html")
-    if request.method == 'POST':
-        flag = predict.predict(request.form['search'])
-        res = connect.select_music(flag)
-        return render_template("index.html", search=request.form['search'], music_list = res)
+    status = 2
 
-@app.route("/form")
+    popular_musics = connect.select_polular_music()[:9]
+    if request.method == 'GET':
+        return render_template("index.html", status = 1, popular_musics=popular_musics)
+    if request.method == 'POST':
+        res = connect.select_name_music(request.form['search'])
+
+        if len(res) < 1:
+            flag = predict.predict(request.form['search'], current_h5, current_dict)
+            print(current_h5)
+            print(current_dict)
+            if flag == -1 or flag ==-2:
+                res = False
+                status = -1
+            else:
+                res = connect.select_music(flag)[:9]
+
+        return render_template("index.html", search=request.form['search'], music_list = res, status = status, popular_musics=popular_musics)
+
+@app.route("/form", methods = ['POST', 'GET'])
 def form():
-    # print(predict.predict('một câu gì đó'))
-    return render_template("form.html")
+    inserted = 0
+    if request.method == 'GET':
+        return render_template("form.html")
+    if request.method == 'POST':
+        connect.insert_music(request.form['name_music'], request.form['name_singer'], request.form['name_author'], request.form['url'], request.form['flag'], 'request.form[]', request.form['rated'])
+        inserted = -1
+    return render_template("form.html", inserted = inserted)
 
 @app.route("/insert")
 def insert():
-    connect.insert_music('bai hat', 'ca si', 'tac gia', 'url', 2)
+    # connect.insert_music('bai hat', 'ca si', 'tac gia', 'url', 2)
     return render_template("form.html")
-# render_template(
-#     'test.html',name=name)</string:name>
 
-@app.route("/setup")
+@app.route("/setup", methods = ['POST', 'GET'])
 def setup():
-    return render_template("form_setup_AI.html")
+    if request.method == 'POST':
+        if 'file_h5' not in request.files or 'file_dict' not in request.files:
+            print('Ko co file h5')
+        file_h5 = request.files['file_h5']
+        file_dict = request.files['file_dict']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file_h5.filename == '' or file_dict.filename== '':
+            print('Ko co du file')
+        else:
+            print('Co file h5')
+            now = datetime.datetime.now()
+            
+            h5_name = now.strftime("%d-%m-%Y-%H-%M_h5_file.")+file_h5.filename.split('.')[-1]
+            dict_name = now.strftime("%d-%m-%Y-%H-%M_dict_file.")+file_dict.filename.split('.')[-1]
 
-@app.route("/search")
-def list_music():
-    res = connect.select_music()
-    print(res)
-    return "connect.select_music()"
+            file_h5.save(model_folder + h5_name)
+            file_dict.save(model_folder + dict_name)
+
+            global current_h5 
+            current_h5 = model_folder + h5_name
+            global current_dict 
+            current_dict= model_folder + dict_name
+    return render_template("form_setup_AI.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

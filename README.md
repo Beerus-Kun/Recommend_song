@@ -2,28 +2,18 @@
 
 
 ### Tạo môi trường ảo
-python -m venv project_evn (neu chua co venv thi cai venv)
+python -m venv project_evn (Chỉ tạo môi trường một lần)
 
 ### Vào môi trường ảo
-project_env\Scripts\activate.bat
+project_env\Scripts\activate.bat (Nếu thấy (venv) ở trước command là đã vào môi trường ảo)
 
-### Cài đặt flask và pyodbc để chạy web MVC
-pip install flask pyodbc
+### Cài đặt các thư viện cần thiết
+pip install -r requirements.txt
 
-### Cài đặt gensin để tạo word2vec
-pip install gensim
+### Chạy file script.sql để lưu trữ dữ liệu
 
-### Cài đặt numpy pandas để xử lý data theo dạng ma trận
-pip install gensim numpy pandas
-
-### Cài đặt sklearn keras tensorflow để train model CNN
-pip install sklearn keras tensorflow
-
-### Cài đặt matplotlib để vẽ biểu đồ
-pip instal matplotlib
+### Thay đổi thông tin trong file Model/connect.py
+Thay đổi server, database, username, password cho phù hợp với mỗi người
 
 ### Chạy chương trình web
 python main.py
-
-### Chạy chương trình để train model
-python Learning/train.py

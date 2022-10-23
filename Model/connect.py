@@ -15,11 +15,11 @@ cnxn = pyodbc.connect(cnxn_str)
 cursor = cnxn.cursor()
 #Sample select query
 
-def insert_music(music, singer, author, url, flag):
+def insert_music(music, singer, author, url, flag, url_image, rated):
     cursor.execute("""
-        INSERT INTO MUSIC(name_music, name_singer, name_author, url, flag)
-        VALUES(?, ?, ?, ?,?)
-    """, music, singer, author, url, flag) 
+        INSERT INTO MUSIC(name_music, name_singer, name_author, url, flag, url_image, rated)
+        VALUES(?, ?, ?, ?,?,?,?)
+    """, music, singer, author, url, flag, url_image, rated) 
     cnxn.commit()
     # cnxn.close()
 
@@ -32,10 +32,30 @@ def insert_music(music, singer, author, url, flag):
 #     cnxn.close()
 #     return res
 
+def select_name_music(name):
+    cursor.execute(f"""
+        select * from music where name_music like N'%{name}%' order by rated DESC
+    """)
+    res = [dict((cursor.description[i][0], value) 
+               for i, value in enumerate(row)) for row in cursor.fetchall()]
+    # cnxn.commit()
+    # cnxn.close()
+    return res
+
 def select_music(flag):
     cursor.execute("""
-        select * from music where flag=?
+        select * from music where flag=? order by rated DESC
     """, int(flag))
+    res = [dict((cursor.description[i][0], value) 
+               for i, value in enumerate(row)) for row in cursor.fetchall()]
+    # cnxn.commit()
+    # cnxn.close()
+    return res
+
+def select_polular_music():
+    cursor.execute("""
+        select * from music order by id DESC
+    """)
     res = [dict((cursor.description[i][0], value) 
                for i, value in enumerate(row)) for row in cursor.fetchall()]
     # cnxn.commit()

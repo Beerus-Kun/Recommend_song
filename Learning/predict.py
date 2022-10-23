@@ -11,28 +11,29 @@ data_folder = "Learning/Data"
 model_folder = "Learning/Final_Model"
 EMBEDDING_DIM = 300
 
-def predict(sentence):
-    if not os.path.exists(model_folder + sep + "tokenizer.pkl"):
+def predict(sentence, h5_file = model_folder + sep + "predict_model.h5", dict_file = model_folder + sep + "tokenizer.pkl"):
+    if not os.path.exists(dict_file):
         print('Can not found tokenizer model')
         return -1
 
-    if not os.path.exists(model_folder + sep + "predict_model.h5"):
+    if not os.path.exists(h5_file):
         print('Can not found CNN model')
         return -1
     
     print("Tokenizer model found, load it!")
-    file = open(model_folder + sep + "tokenizer.pkl", 'rb')
+    file = open(dict_file, 'rb')
     tokenizer, word_index = pickle.load(file)
     file.close()
 
     print("CNN model found, load it!")
-    model = load_model(model_folder + sep + "predict_model.h5")
+    model = load_model(h5_file)
 
     # predict
     arr = tokenizer.texts_to_sequences([sentence])
     # print("\nĐộ dài câu: ", len(arr[0]))
     if len(arr[0]) == 0:
         print('Warning! Every words in this sentence couldn\'t found in current dictionary')
+        return -2
     arr[0] = [0] * (model.layers[0].output_shape[0][1]-len(arr[0])) + arr[0]
     return model.predict(arr).argmax()
 

@@ -16,7 +16,7 @@
 
         <!-- Registeration Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
+            <form action="http://localhost:5000/form" method="post">
                 <div class="row">
                     <!-- Email Address -->
                     <div class="input-group col-lg-12 mb-4">
@@ -51,6 +51,14 @@
                         </div>
                         <input type="text" name="url" placeholder="Nhập URL nhạc" class="form-control bg-white border-left-0 border-md">
                     </div>
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-link text-muted"></i>
+                            </span>
+                        </div>
+                        <input type="number" name="rated" placeholder="Nhập điểm nhạc" class="form-control bg-white border-left-0 border-md">
+                    </div>
                     <!-- Job -->
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
@@ -61,8 +69,8 @@
                         <select id="job" name="flag" class="form-control custom-select bg-white border-left-0 border-md">
                             <option value="">Chọn nhãn</option>
                             <option value="0">Buồn</option>
-                            <option value="1">Vui</option>
-                            <option value="2">Thư giản</option>
+                            <option value="2">Vui</option>
+                            <option value="1">Thư giản</option>
                         </select>
                     </div>
                     <!-- Submit Button -->
@@ -88,8 +96,7 @@
             });
         });
     });
-    // For Demo Purpose [Changing input group text on focus]
-
+    
 </script>
 </body>
 </html>

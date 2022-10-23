@@ -1,0 +1,9 @@
+flask 
+pyodbc
+gensim
+numpy 
+pandas
+sklearn 
+keras 
+tensorflow
+matplotlib
