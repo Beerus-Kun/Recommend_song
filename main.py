@@ -47,7 +47,7 @@ def form():
         image_folder = 'static/images/' + image_name
         image_file.save(image_folder)
 
-        connect.insert_music(request.form['name_music'], request.form['name_singer'], request.form['name_author'], request.form['url'], request.form['flag'], image_folder, request.form['rated'])
+        connect.insert_music(request.form['name_music'], request.form['name_singer'], request.form['name_author'], request.form['url'], request.form['flag'], image_name, request.form['rated'])
     
     return render_template("form.html")
 
