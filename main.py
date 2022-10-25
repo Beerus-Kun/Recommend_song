@@ -33,13 +33,23 @@ def home():
 
 @app.route("/form", methods = ['POST', 'GET'])
 def form():
-    inserted = 0
     if request.method == 'GET':
         return render_template("form.html")
     if request.method == 'POST':
-        connect.insert_music(request.form['name_music'], request.form['name_singer'], request.form['name_author'], request.form['url'], request.form['flag'], 'request.form[]', request.form['rated'])
-        inserted = -1
-    return render_template("form.html", inserted = inserted)
+        print(request.form)
+        print(request.files)
+
+        now = datetime.datetime.now()
+        
+        image_file = request.files['image_music']
+        image_name = now.strftime("%d-%m-%Y-%H-%M.")+image_file.filename.split('.')[-1]
+
+        image_folder = 'static/images/' + image_name
+        image_file.save(image_folder)
+
+        connect.insert_music(request.form['name_music'], request.form['name_singer'], request.form['name_author'], request.form['url'], request.form['flag'], image_folder, request.form['rated'])
+    
+    return render_template("form.html")
 
 @app.route("/insert")
 def insert():
