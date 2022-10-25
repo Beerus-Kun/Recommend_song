@@ -17,8 +17,8 @@ from keras.callbacks import ModelCheckpoint
 
 sep = os.sep
 
-data_folder = "Learning/Full_Data"
-model_folder = "Learning/Final_Model"
+data_folder = "Learning/Data/Full_Data"
+model_folder = "Learning/Data/Final_Model"
 result_folder = "Learning/Result"
 
 EMBEDDING_DIM = 300

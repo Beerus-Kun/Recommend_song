@@ -5,7 +5,7 @@ from Learning import predict
 import os, datetime
 
 app = Flask(__name__)
-model_folder = "Learning/Final_Model/"
+model_folder = "Learning/Data/Final_Model/"
 current_h5 = model_folder + 'predict_model.h5'
 current_dict = model_folder + "tokenizer.pkl"
 
