@@ -1,8 +1,8 @@
 import re
-def getStopword(content1):
+def deStopword(content1):
     stopwords = []
     stopwords1 = []
-    content = open('stopwords.txt', 'r', encoding='UTF-8').read()
+    content = open('Normalization/stopwords.txt', 'r', encoding='UTF-8').read()
     res = content.split("\n")
     res1 = content1.split()
     res2 = []
@@ -34,7 +34,7 @@ def getStopword(content1):
 
 if __name__ == '__main__':
 
-    print(getStopword('có thể có vẻ rất cái gì đó stop hay quá trời luôn'))
+    print(deStopword('có thể có vẻ rất cái gì đó stop hay quá trời luôn'))
 
 
 

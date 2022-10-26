@@ -21,7 +21,7 @@ def home():
         res = connect.select_name_music(request.form['search'])
         if len(res) < 1:
             correct_sentence = chuanhoachuTV.chuan_hoa_dau_cau_tieng_viet(request.form['search'])
-            correct_sentence = stopword.getStopword(correct_sentence)
+            correct_sentence = stopword.deStopword(correct_sentence)
             flag = predict.predict(correct_sentence, current_h5, current_dict)
             if flag == -1 or flag ==-2:
                 res = False
@@ -85,4 +85,3 @@ def setup():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    # https://www.freecodecamp.org/news/how-to-build-a-web-application-using-flask-and-deploy-it-to-the-cloud-3551c985e492/
