@@ -25,17 +25,24 @@ EMBEDDING_DIM = 300
 
 
 def txtTokenizer(texts):
-    tokenizer = Tokenizer(lower=True, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n\'')
+    tokenizer = Tokenizer(lower=True, filters='')
     tokenizer.fit_on_texts(texts)
 
     word_index = tokenizer.word_index
     return tokenizer, word_index
 
-def preProcess(sentences):
+# def txtTokenizer(texts):
+#     tokenizer = Tokenizer(lower=True, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n\'')
+#     tokenizer.fit_on_texts(texts)
 
-    text = [re.sub(r'([^\s\w]|_)+', '', sentence) for sentence in sentences if sentence!='']
-    text = [sentence.lower().strip().split() for sentence in text]
-    return text
+#     word_index = tokenizer.word_index
+#     return tokenizer, word_index
+
+# def preProcess(sentences):
+
+#     text = [re.sub(r'([^\s\w]|_)+', '', sentence) for sentence in sentences if sentence!='']
+#     text = [sentence.lower().strip().split() for sentence in text]
+#     return text
 
 def loadData(data_folder):
     texts = []
@@ -45,7 +52,7 @@ def loadData(data_folder):
         with open(data_folder + sep + file, 'r', encoding="utf-8") as f:
             all_of_it = f.read()
             sentences  = all_of_it.split('\n')
-            sentences = preProcess(sentences)
+            # sentences = preProcess(sentences)
             texts = texts + sentences
             label = [file for _ in sentences]
             labels = labels + label

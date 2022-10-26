@@ -7,8 +7,8 @@ from keras.models import load_model
 
 sep = os.sep
 
-data_folder = "Learning/Data"
-model_folder = "Learning/Final_Model"
+data_folder = "Learning/Data/Full_Data/"
+model_folder = "Learning/Model/Final_Model/"
 EMBEDDING_DIM = 300
 
 def predict(sentence, h5_file = model_folder + sep + "predict_model.h5", dict_file = model_folder + sep + "tokenizer.pkl"):
@@ -31,9 +31,9 @@ def predict(sentence, h5_file = model_folder + sep + "predict_model.h5", dict_fi
     # predict
     arr = tokenizer.texts_to_sequences([sentence])
     # print("\nĐộ dài câu: ", len(arr[0]))
-    if len(arr[0]) == 0:
-        print('Warning! Every words in this sentence couldn\'t found in current dictionary')
-        return -2
+    # if len(arr[0]) == 0:
+    #     print('Warning! Every words in this sentence couldn\'t found in current dictionary')
+    #     return -2
     arr[0] = [0] * (model.layers[0].output_shape[0][1]-len(arr[0])) + arr[0]
     return model.predict(arr).argmax()
 

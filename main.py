@@ -2,10 +2,11 @@
 from flask import Flask, render_template, request
 from Model import connect
 from Learning import predict
+from Normalization import chuanhoachuTV, stopword, test
 import os, datetime
 
 app = Flask(__name__)
-model_folder = "Learning/Data/Final_Model/"
+model_folder = "Learning/Model/Final_Model/"
 current_h5 = model_folder + 'predict_model.h5'
 current_dict = model_folder + "tokenizer.pkl"
 
@@ -18,11 +19,10 @@ def home():
         return render_template("index.html", status = 1, popular_musics=popular_musics)
     if request.method == 'POST':
         res = connect.select_name_music(request.form['search'])
-
         if len(res) < 1:
-            flag = predict.predict(request.form['search'], current_h5, current_dict)
-            print(current_h5)
-            print(current_dict)
+            correct_sentence = chuanhoachuTV.chuan_hoa_dau_cau_tieng_viet(request.form['search'])
+            correct_sentence = stopword.getStopword(correct_sentence)
+            flag = predict.predict(correct_sentence, current_h5, current_dict)
             if flag == -1 or flag ==-2:
                 res = False
                 status = -1
