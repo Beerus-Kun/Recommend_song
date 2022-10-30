@@ -6,7 +6,7 @@ from Normalization import chuanhoachuTV, stopword, test
 import os, datetime
 
 app = Flask(__name__)
-model_folder = "Learning/Model/Final_Model/"
+model_folder = "Learning/Model/Current_Model/"
 current_h5 = model_folder + 'predict_model.h5'
 current_dict = model_folder + "tokenizer.pkl"
 
@@ -21,7 +21,9 @@ def home():
         res = connect.select_name_music(request.form['search'])
         if len(res) < 1:
             correct_sentence = chuanhoachuTV.chuan_hoa_dau_cau_tieng_viet(request.form['search'])
+            print('chuẩn hóa dấu câu: ', correct_sentence)
             correct_sentence = stopword.deStopword(correct_sentence)
+            print('bỏ stopword: ', correct_sentence)
             flag = predict.predict(correct_sentence, current_h5, current_dict)
             if flag == -1 or flag ==-2:
                 res = False
@@ -36,9 +38,6 @@ def form():
     if request.method == 'GET':
         return render_template("form.html")
     if request.method == 'POST':
-        print(request.form)
-        print(request.files)
-
         now = datetime.datetime.now()
         
         image_file = request.files['image_music']

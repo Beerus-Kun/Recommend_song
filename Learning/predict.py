@@ -30,9 +30,9 @@ def predict(sentence, h5_file = model_folder + sep + "predict_model.h5", dict_fi
 
     # predict
     arr = tokenizer.texts_to_sequences([sentence])
-    # print("\nĐộ dài câu: ", len(arr[0]))
-    # if len(arr[0]) == 0:
-    #     print('Warning! Every words in this sentence couldn\'t found in current dictionary')
+    print("\nĐộ dài câu: ", len(arr[0]))
+    if len(arr[0]) == 0:
+        print('Warning! Every words in this sentence couldn\'t found in current dictionary')
     #     return -2
     arr[0] = [0] * (model.layers[0].output_shape[0][1]-len(arr[0])) + arr[0]
     return model.predict(arr).argmax()

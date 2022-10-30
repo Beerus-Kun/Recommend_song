@@ -17,42 +17,27 @@ from keras.callbacks import ModelCheckpoint
 
 sep = os.sep
 
-data_folder = "Learning/Data/Full_Data"
-model_folder = "Learning/Data/Final_Model"
+data_folder = "Learning/Data/Wrong_Data"
+model_folder = "Learning/Model/Wrong_Model"
 result_folder = "Learning/Result"
 
 EMBEDDING_DIM = 300
 
-
 def txtTokenizer(texts):
-    tokenizer = Tokenizer(lower=True, filters='')
+    tokenizer = Tokenizer(lower=True, filters=',.')
     tokenizer.fit_on_texts(texts)
 
     word_index = tokenizer.word_index
     return tokenizer, word_index
 
-# def txtTokenizer(texts):
-#     tokenizer = Tokenizer(lower=True, filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n\'')
-#     tokenizer.fit_on_texts(texts)
-
-#     word_index = tokenizer.word_index
-#     return tokenizer, word_index
-
-# def preProcess(sentences):
-
-#     text = [re.sub(r'([^\s\w]|_)+', '', sentence) for sentence in sentences if sentence!='']
-#     text = [sentence.lower().strip().split() for sentence in text]
-#     return text
-
 def loadData(data_folder):
     texts = []
     labels = []
     for file in listdir(data_folder):
-        print("Load file: ", file)
+        # print("Load file: ", file)
         with open(data_folder + sep + file, 'r', encoding="utf-8") as f:
             all_of_it = f.read()
             sentences  = all_of_it.split('\n')
-            # sentences = preProcess(sentences)
             texts = texts + sentences
             label = [file for _ in sentences]
             labels = labels + label
@@ -91,8 +76,8 @@ if __name__ == '__main__':
     # create or load word2vec model
     if not os.path.exists(model_folder + sep + "word_model.model"):
         cores = multiprocessing.cpu_count()
-        word_model = gensim.models.Word2Vec(texts, vector_size=EMBEDDING_DIM, min_count=2, workers=cores-1)
-        word_model.train(texts, total_examples=word_model.corpus_count, epochs=20 )
+        word_model = gensim.models.Word2Vec(texts, vector_size=EMBEDDING_DIM, min_count=3, workers=cores-1)  # default window = 5
+        word_model.train(texts, total_examples=word_model.corpus_count, epochs=5 )
         word_model.save(model_folder + sep + "word_model.model")
     else:
         word_model = gensim.models.Word2Vec.load(model_folder + sep + "word_model.model")
@@ -145,7 +130,7 @@ if __name__ == '__main__':
     history_data = model.fit(X_train,y_train,batch_size= batch,epochs=epochs,callbacks=callbacks_list, verbose=2, validation_data=(X_test,y_test))
 
     # create chart
-    plt.plot(history_data.history['accuracy'], label = "train_accuracy")
+    # plt.plot(history_data.history['accuracy'], label = "train_accuracy")
     plt.plot(history_data.history['val_accuracy'], label = "val_accuracy")
     plt.xlabel('iteration')
     plt.ylabel('Accuracy')
@@ -153,4 +138,4 @@ if __name__ == '__main__':
 
     now = datetime.datetime.now()
 
-    plt.savefig(result_folder + sep + now.strftime("%d-%m-%Y_full_data.png"))
+    plt.savefig(result_folder + sep + now.strftime("%d-%m-%Y_wrong_data.png"))
