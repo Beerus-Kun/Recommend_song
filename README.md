@@ -12,6 +12,7 @@
 - Thêm bài hát mới.
 - Thay đổi tri thức cho hệ thống.
 
+
 - Build MVC web model with flask, connect to SQL Server database and connect to View in HTML language.
 - The website go through the following stages when users search:
    + The system receive content from the user.
@@ -41,3 +42,47 @@
 **B6: Thay đổi thông tin server, database, username, password trong file [connect](Model/connect.py) (Change server, database, username, password informations in file [connect](Model/connect.py))**\
 **B7: Chạy chương trình (Run the program)**
 - python main.py
+
+> **Lưu ý (Attention):** Bạn phải cài đặt python, git và python venv sẵn trong máy (You must have python, git and python venv installed on your machine)
+
+
+### **Mô hình dự đoán và thực thi (Predictive modeling and training)**:
+
+**Data**
+- Chương trình chạy sẽ lấy dữ liệu từ các thư mục trong thư mục [Data](Learning/Data/), ở trong mỗi thư mục sẽ có các câu được phân theo các cảm xúc (vui, buồn, thư giãn) và được lưu vào file text. Các thư mục dữ liệu có nhiều loại như: [Full data](Learning/Data/Full_Data/) (Dữ liệu chưa loại bỏ stopwords), [Standardized data](Learning/Data/Stan_Data/) (Dữ liệu đã được chuẩn hóa dấu câu và loại bỏ stopwords), [Wrong data](Learning/Data/Wrong_Data/) (Dữ liệu đã được chuẩn hóa dấu câu, bỏ stopwords nhưng các câu bị thay đổi nhãn để tạo ra mô hình không tốt để so sánh)
+
+####
+- The running program will take data from folders in the folder [Data](Learning/Data/),there are sentences classified by emotions (happy, sad, relaxing) in each folder and saved them into text files. The data directories have many types such as: [Full data](Learning/Data/Full_Data/) (Data has not removed stopwords), [Standardized data](Learning/Data/Stan_Data/) (Data has been normalized with Vietnamese accent and stopwords are removed), [Wrong data](Learning/Data/Wrong_Data/) (Data has been normalized with Vietnamese accent, stopwords are removed and change label of sentences to compare the effectiveness of the models)
+
+**Pre-processing**
+- Đầu tiên, các câu sẽ được chuẩn hóa theo dấu câu. Ví dụ: các từ "thuý", "uỷ", "tuýên", "quỳên", "tôí" đã bị sai vị trí dấu câu nên được đổi thành "thúy", "ủy", "tuyến", "quyền", "tối". (First, sentences will be normalized according to Vietnamese accent. Example, The words "thuý", "uỷ", "tuýên", "quỳên", "tôí" have been misplaced with Vietnamese accent, so they should be changed to "thúy", "ủy", "tuyến", "quyền", "tối")
+
+<p align="center">
+  <img src="images/2022-10-31122929.png" width="350"/>
+</p>
+
+- Các câu sẽ được loại bỏ những được cho là [stopwords](Normalization/stopwords1.txt). Ví dụ: Trong câu "chạp nỗi lòng. 😘🥰 rất buồn quá làm ra bên cạnh tôi lúc này" những từ được cho là stopwords gồm: "lòng", "rất", "làm ra", "bên cạnh", "tôi", "lúc này". Câu sau khi loại bỏ stopwords còn lại là: "chạp nỗi . 😘🥰 buồn". (Sentences will be removed that are supposed to be [stopwords](Normalization/stopwords1.txt). Example: In the sentence "chạp nỗi lòng. 😘🥰 rất buồn quá làm ra bên cạnh tôi lúc này". The words that are supposed to be stopwords include: "lòng", "rất", "làm ra", "bên cạnh", "tôi", "lúc này". The sentence after removing the stopwords is "chạp nỗi . 😘🥰 buồn")
+
+<p align="center">
+  <img src="images/2022-10-31123158.png" width="350"/>
+</p>
+
+- Sử dụng Tokenizer của keras để chuyển các từ thành số theo từ điển bên dưới. (Use keras' Tokenizer to convert words to numbers according to the dictionary below.)
+
+<p align="center">
+  <img src="images/2022-10-31173710.png"/>
+</p>
+
+- Đồng thời sử dụng pad pad sequences của keras để chuyển câu "Bài hát thật sự buồn và hợp tâm trạng mình" thành một vector có độ dài là 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]). Also use keras' pad sequences to convert the sentence "Bài hát thật sự buồn và hợp tâm trạng mình" into a vector of length 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]).
+
+<p align="center">
+  <img src="images/2022-10-31174457.png" width="350"/>
+</p>
+
+- Chuyển một câu thành một danh sách những từ (Turn a sentence into a list of words).
+
+<p align="center">
+  <img src="images/2022-10-31193139.png"/>
+</p>
+
+- Tạo Word Embedding bằng Word2vec, mỗi từ đi qua Word2vec sẽ thành một vector. 

@@ -17,8 +17,8 @@ from keras.callbacks import ModelCheckpoint
 
 sep = os.sep
 
-data_folder = "Learning/Data/Wrong_Data"
-model_folder = "Learning/Model/Wrong_Model"
+data_folder = "Learning/Data/Full_Data"
+model_folder = "Learning/Model/Full_Model"
 result_folder = "Learning/Result"
 
 EMBEDDING_DIM = 300
@@ -30,6 +30,13 @@ def txtTokenizer(texts):
     word_index = tokenizer.word_index
     return tokenizer, word_index
 
+def preProcess(sentences):
+
+    text = [re.sub(r'.,', '', sentence) for sentence in sentences if sentence!='']
+    text = [sentence.lower().strip().split() for sentence in text]
+    #print("Tex=",text)
+    return text
+
 def loadData(data_folder):
     texts = []
     labels = []
@@ -38,6 +45,7 @@ def loadData(data_folder):
         with open(data_folder + sep + file, 'r', encoding="utf-8") as f:
             all_of_it = f.read()
             sentences  = all_of_it.split('\n')
+            sentences = preProcess(sentences)
             texts = texts + sentences
             label = [file for _ in sentences]
             labels = labels + label
@@ -138,4 +146,4 @@ if __name__ == '__main__':
 
     now = datetime.datetime.now()
 
-    plt.savefig(result_folder + sep + now.strftime("%d-%m-%Y_wrong_data.png"))
+    plt.savefig(result_folder + sep + now.strftime("%d-%m-%Y_full_data.png"))
