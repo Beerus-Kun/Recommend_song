@@ -39,7 +39,7 @@
 - pip install -r requirements.txt
 
 **B5: Tạo bảng trên SQL Server bằng [script](script.sql) (Create tables on SQL Server with [script](script.sql))**\
-**B6: Thay đổi thông tin server, database, username, password trong file [connect](Model/connect.py) (Change server, database, username, password informations in [connect](Model/connect.py)) file**\
+**B6: Thay đổi thông tin server, database, username, password trong file [connect](Model/connect.py) (Change server, database, username, password informations in [connect](Model/connect.py) file)**\
 **B7: Chạy chương trình (Run the program)**
 - python main.py
 
