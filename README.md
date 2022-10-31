@@ -73,7 +73,7 @@
   <img src="images/2022-10-31173710.png"/>
 </p>
 
-- Đồng thời sử dụng pad pad sequences của keras để chuyển câu "Bài hát thật sự buồn và hợp tâm trạng mình" thành một vector có độ dài là 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]). Also use keras' pad sequences to convert the sentence "Bài hát thật sự buồn và hợp tâm trạng mình" into a vector of length 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]).
+- Đồng thời sử dụng pad sequences của keras để chuyển câu "Bài hát thật sự buồn và hợp tâm trạng mình" thành một vector có độ dài là 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]). Also use keras' pad sequences to convert the sentence "Bài hát thật sự buồn và hợp tâm trạng mình" into a vector of length 10 ([ 60, 1, 164, 74, 8, 103, 76, 9, 11, 40]).
 
 <p align="center">
   <img src="images/2022-10-31174457.png" width="350"/>
@@ -82,7 +82,37 @@
 - Chuyển một câu thành một danh sách những từ (Turn a sentence into a list of words).
 
 <p align="center">
-  <img src="images/2022-10-31193139.png"/>
+  <img src="images/2022-10-31205355.png"/>
 </p>
 
-- Tạo Word Embedding bằng Word2vec, mỗi từ đi qua Word2vec sẽ thành một vector. 
+- Tạo Word Embedding bằng Word2vec (Create Word Embedding with Word2vec). 
+
+<p align="center">
+  <img src="images/2022-10-31210004.png"/>
+</p>
+
+- Mỗi từ chuyển thành vector (Each word turns into a vector).
+
+<p align="center">
+  <img src="images/2022-10-31210415.png"/>
+</p>
+
+**Training**
+
+- Tạo mô hình CNN để dự đoán (Create a CNN model to predict).
+
+<p align="center">
+  <img src="images/2022-10-31211011.png"/>
+</p>
+
+- Kết quả khi train model với tập dữ liệu chưa loại bỏ stopwords (Result when training model with dataset that has not removed stopwords).
+
+<p align="center">
+  <img src="Learning/Result/31-10-2022_full_data.png"/>
+</p>
+
+- Kết quả khi train model với tập dữ liệu đã loại bỏ stopwords (Results when training model with dataset with stopwords removed).
+
+<p align="center">
+  <img src="Learning/Result/31-10-2022_stan_data.png"/>
+</p>

@@ -32,7 +32,7 @@ def txtTokenizer(texts):
 
 def preProcess(sentences):
 
-    text = [re.sub(r'.,', '', sentence) for sentence in sentences if sentence!='']
+    text = [re.sub(r'(\.)|(,)', '', sentence) for sentence in sentences if sentence!='']
     text = [sentence.lower().strip().split() for sentence in text]
     #print("Tex=",text)
     return text
