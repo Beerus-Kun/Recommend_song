@@ -12,7 +12,7 @@
 - Thêm bài hát mới.
 - Thay đổi tri thức cho hệ thống.
 
-
+####
 - Build MVC web model with flask, connect to SQL Server database and connect to View in HTML language.
 - The website go through the following stages when users search:
    + The system receive content from the user.
@@ -39,7 +39,7 @@
 - pip install -r requirements.txt
 
 **B5: Tạo bảng trên SQL Server bằng [script](script.sql) (Create tables on SQL Server with [script](script.sql))**\
-**B6: Thay đổi thông tin server, database, username, password trong file [connect](Model/connect.py) (Change server, database, username, password informations in file [connect](Model/connect.py))**\
+**B6: Thay đổi thông tin server, database, username, password trong file [connect](Model/connect.py) (Change server, database, username, password informations in [connect](Model/connect.py)) file**\
 **B7: Chạy chương trình (Run the program)**
 - python main.py
 
@@ -115,4 +115,37 @@
 
 <p align="center">
   <img src="Learning/Result/31-10-2022_stan_data.png"/>
+</p>
+
+### **Demo**:
+- Màn hình chính: Trên màn hình chính xuất hiện những bài hát mới nhất (Home screen: On the main screen appear the latest songs).
+
+<p align="center">
+  <img src="images/2022-10-31212543.png"/>
+</p>
+
+
+- Khi tìm kiếm từ có trong tiêu đề của bài hát, hệ thống đưa ra các bài hát đó (When searching for words in the title of the song, the system show those).
+
+<p align="center">
+  <img src="images/2022-10-31212622.png"/>
+</p>
+
+- Khi không tìm thấy tiêu đề bài hát gần giống nội dụng đang tìm kiếm, hệ thống chuyển qua dự đoán bằng tri thức (When the song title is not found similar to what you are looking for, the system switches to knowledge prediction). 
+
+<p align="center">
+  <img src="images/2022-10-31213639.png"/>
+</p>
+
+
+- Hệ thống cung cấp nơi thêm bài hát mới (The system provides a site to add new songs).
+
+<p align="center">
+  <img src="images/2022-10-31212830.png"/>
+</p>
+
+- Hệ thống cung cấp nơi đổi tri thức cho hệ thống (The system provides a place to exchange knowledge for the system).
+
+<p align="center">
+  <img src="images/2022-10-31212809.png"/>
 </p>
